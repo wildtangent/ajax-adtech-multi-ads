@@ -1,58 +1,71 @@
-$(function(){
-  
-  // Load ads with AJAX
-  var loadAds = function(){
-    
-    // Set the adgroupid for some reason
-    if (window.adgroupid == undefined) {
-    	window.adgroupid = Math.round(Math.random() * 1000);
-    }
-    
-    // Definw the ad server request
-    var adRequestUrl = "http://adserver.adtech.de/multiad/3.0/25/0/0/-1/ADTECH;mode=json;cors=yes;plcids=2154536,2130496,2130497;loc=100;target=_blank;grp=" + window.adgroupid + ";cookie=info;misc=" + new Date().getTime();
-    
-    
-    // Make the AJAX request
-    $.ajax({
-      url: adRequestUrl, 
-      dataType: "json",
-      method: "get",
-      cache: false,
-      crossdomain: true,
-      success:  function(data, status, xhr){
-        
-        // Loop through each ad unit
-        $.each(data.ADTECH_MultiAd, function(i, item){
-          var adSlot = "#ad_" + (i + 1);
-          
-          // Wrap the ad tag in a script tag so it gets processed correctly
-          var adTag = "<script>" + item.Ad.AdCode + "</script>";
-          
-          // Process with postscribe
-          postscribe(adSlot, adTag, {
-            beforeWrite: function(str){
-              // Clear the current ad
-              $(adSlot).html("");
-              return str;
-            }
-          });
-        })
-      }
-    });
-  }
-  
-  // Bind the reload button event
-  var bindReload = function(){
-    $("a#reload").on("click", function(e){
+var wcScriptInterval_3703727_UID;
+if (typeof adtAsync_isLoading === 'undefined') { var adtAsync_isLoading = false; }
 
-      e.preventDefault();
-      $('#ad_1, #ad_2, #ad_3').html("");
-      loadAds();
-    })
+if (window.adgroupid == undefined) { 
+  window.adgroupid = Math.round(Math.random() * 1000); 
+}
+
+function initAdtech() {
+  if (typeof writeCapture === 'undefined') {
+    if (adtAsync_isLoading === false) {
+    	adtAsync_isLoading = true;
+    	var wcScript = document.createElement('script');
+      wcScript.setAttribute('type', 'text/javascript');
+    	wcScript.setAttribute('src', 'http://aka-cdn.adtech.de/rm/lib/writeCapture/writeCapture-1.0.5-nolib-min.js');
+      document.getElementById('asyncPlaceholder_3703727_UID').appendChild(wcScript);
+    }
+    wcScriptInterval_3703727_UID = setInterval(loadAllAds, 100);
+  } else {
+    loadAllAds();
   }
-  bindReload();
-  
-  // Just setting a delay so you can see the Async working
-  setTimeout(loadAds, 1000);
-    
-})
+}
+
+function loadAllAds(){
+  loadAdtech_3703727_UID();
+  loadAdtech_3703686_UID();
+  loadAdtech_3703659_UID();
+  loadAdtech_3703698_UID();
+}
+
+
+function loadAdtech_3703727_UID() {
+  if (typeof writeCapture !== 'undefined') {
+    clearInterval(wcScriptInterval_3703727_UID);
+    adtAsync_isLoading = false;
+    writeCapture.writeOnGetElementById = true;
+    var adTagString = '<script type="text/javascript" src="http://adserver.adtech.de/addyn/3.0/1299.1/3703727/0/225/ADTECH;loc=100;target=_blank;alias=leaderboard_1_videos_whitelines;grp='+window.adgroupid+';misc='+new Date().getTime()+';"><\/script>';
+    writeCapture.html('#ad_1', adTagString);
+  }
+}
+
+function loadAdtech_3703698_UID() {
+  if (typeof writeCapture !== 'undefined') {
+    clearInterval(wcScriptInterval_3703727_UID);
+    adtAsync_isLoading = false;
+    writeCapture.writeOnGetElementById = true;
+    var adTagString = '<script type="text/javascript" src="http://adserver.adtech.de/addyn/3.0/1299.1/3703698/0/225/ADTECH;loc=100;target=_blank;key=key1+key2+key3+key4;alias=leaderboard_2_videos_whitelines;sub1=[subst];grp='+window.adgroupid+';misc='+new Date().getTime()+';"><\/script>';
+    writeCapture.html('#ad_2', adTagString);
+  }
+}
+
+function loadAdtech_3703659_UID() {
+  if (typeof writeCapture !== 'undefined') {
+    clearInterval(wcScriptInterval_3703727_UID);
+    adtAsync_isLoading = false;
+    writeCapture.writeOnGetElementById = true;
+    var adTagString = '<script type="text/javascript" src="http://adserver.adtech.de/addyn/3.0/1299.1/3703659/0/170/ADTECH;loc=100;target=_blank;key=key1+key2+key3+key4;alias=mpu_1_videos_whitelines;sub1=[subst];grp='+window.adgroupid+';misc='+new Date().getTime()+';"><\/script>';
+    writeCapture.html('#ad_3', adTagString);
+  }
+}
+
+function loadAdtech_3703686_UID() {
+  if (typeof writeCapture !== 'undefined') {
+    clearInterval(wcScriptInterval_3703727_UID);
+    adtAsync_isLoading = false;
+    writeCapture.writeOnGetElementById = true;
+    var adTagString = '<script type="text/javascript" src="http://adserver.adtech.de/addyn/3.0/1299.1/3703686/0/170/ADTECH;loc=100;target=_blank;key=key1+key2+key3+key4;alias=mpu_2_videos_whitelines;sub1=[subst];grp='+window.adgroupid+';misc='+new Date().getTime()+';"><\/script>';
+    writeCapture.html('#ad_4', adTagString);
+  }
+}
+
+initAdtech();
