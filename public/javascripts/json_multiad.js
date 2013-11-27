@@ -12,9 +12,13 @@ $(function(){
     // Default example from the docs
     //var adRequestUrl = "http://adserver.adtech.de/multiad/3.0/25/0/0/-1/ADTECH;mode=json;cors=yes;asfunc=1;plcids=2154536,2130496,2130497;loc=100;target=_blank;grp=" + window.adgroupid + ";cookie=info;misc=" + new Date().getTime();
    
-    // Our Aliases, very simple for now, add more to the array if needed
+    // Our Aliases, uncomment others if needed for further testing
     aliases = [
-      'leaderboard_1_homepage_whitelines'
+      'leaderboard_1_homepage_whitelines',
+      // 'mpu_1_homepage_whitelines',
+      // 'mpu_2_homepage_whitelines',
+      // 'leaderboard_2_homepage_whitelines',
+      // 'skin_homepage_whitelines'
     ]
   
     var adRequestUrl = "http://adserver.adtech.de/multiad/3.0/1299.1/0/0/-1/ADTECH;mode=json;cors=yes;alias=" + aliases.join(",")  + ";loc=100;target=_blank;grp=" + window.adgroupid + ";misc=" + new Date().getTime(); 
